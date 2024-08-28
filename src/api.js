@@ -6,7 +6,7 @@ module.exports = {
 	initConnection: function () {
 		let self = this
 
-		self.updateStatus(InstanceStatus.Ok)
+		self.updateStatus(InstanceStatus.Connecting)
 
 		self.sendCommand('avContent', 'getCurrentExternalInputsStatus', {}, 'allinputs')
 
@@ -19,7 +19,7 @@ module.exports = {
 
 		self.stopInterval()
 
-		if (self.config.interval > 0) {
+		if (self.config.polling !== undefined && self.config.polling && self.config.interval > 0) {
 			self.INTERVAL = setInterval(self.getInformation.bind(self), self.config.interval)
 			self.log('info', 'Starting Update Interval: Every ' + self.config.interval + 'ms')
 		}
@@ -72,6 +72,7 @@ module.exports = {
 					//do something with response
 					try {
 						if (response.statusCode == 200) {
+							self.updateStatus(InstanceStatus.Ok)
 							if (request) {
 								if (data.result) {
 									switch (request) {
@@ -79,6 +80,7 @@ module.exports = {
 											self.DATA.inputs = data.result[0]
 											self.buildInputList()
 											self.initFeedbacks()
+											self.initPresets()
 											break
 										case 'power':
 											self.DATA.powerState = data.result[0].status === 'active' ? true : false
@@ -104,22 +106,49 @@ module.exports = {
 							self.checkVariables()
 						} else {
 							if (response.statusCode == 403) {
+								self.updateStatus(InstanceStatus.ConnectionFailure, 'Error 403, PSK may be incorrect.')
 								self.log('error', 'PSK may be incorrect. Please check your PSK and try again.')
 								self.stopInterval()
 							}
 						}
 					} catch (error) {
+						self.updateStatus(InstanceStatus.UnknownError, 'Failed to process response: ' + error)
 						self.log('error', 'Error processing response: ' + error)
 						console.log(error)
 						console.log(data)
 					}
 				})
 				.on('error', function (error) {
+					self.updateStatus(InstanceStatus.UnknownError, 'Failed to sending command ' + error.toString())
 					self.log('error', 'Error Sending Command ' + error.toString())
 				})
 		} else {
+			self.updateStatus(InstanceStatus.BadConfig, 'No PSK set, not sending.')
 			if (self.config.verbose) {
 				self.log('debug', 'No PSK set. Not sending command.')
+			}
+		}
+	},
+
+	parseDeviceResourceURI: function (uri) {
+		try {
+			resourceURI = new URL(uri)
+			if (resourceURI.protocol == 'extinput:') {
+				let params = resourceURI.searchParams
+				return {
+					// Seemingly not URL.host!
+					kind: resourceURI.pathname,
+					port: parseInt(params.get('port')),
+				}
+			} else {
+				return undefined
+			}
+		} catch (e) {
+			// instanceof doesn't seem to work directly
+			if (e.name == 'TypeError') {
+				return undefined
+			} else {
+				throw e
 			}
 		}
 	},
