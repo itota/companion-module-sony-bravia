@@ -93,6 +93,39 @@ module.exports = {
 			},
 		}
 
+		actions.other_command = {
+			name: 'Other Command',
+			options: [
+				{
+					type: 'textinput',
+					label: 'Service',
+					id: 'service',
+					required: true,
+				},
+				{
+					type: 'textinput',
+					label: 'Method',
+					id: 'method',
+					required: true,
+				},
+				{
+					type: 'textinput',
+					label: 'Parameters(JSON)',
+					id: 'params',
+					useVariables: true,
+				},
+			],
+			callback: async function (action) {
+				let params = {}
+				try {
+					params = JSON.parse(action.options.params)
+				} catch (e) {
+					// pass	
+				}
+				self.sendCommand(action.options.service, action.options.method, params)
+			},
+		}
+
 		self.setActionDefinitions(actions)
 	},
 }
