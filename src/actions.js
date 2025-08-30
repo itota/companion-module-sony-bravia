@@ -21,6 +21,14 @@ module.exports = {
 			},
 		}
 
+		actions.reboot = {
+			name: 'Reboot',
+			options: [],
+			callback: async function (action) {
+				self.sendCommand('system', 'requestReboot', {})
+			},
+		}
+
 		actions.volume_up = {
 			name: 'Volume Up',
 			options: [],
