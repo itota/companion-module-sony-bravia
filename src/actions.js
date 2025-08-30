@@ -112,13 +112,13 @@ module.exports = {
 					id: 'app_value',
 					default: '',
 					required: true,
-				}
+				},
 			],
 			callback: async function (action) {
 				let opt = action.options
 				const value = encodeURI(opt.app_value.trim())
 				let params = {
-					uri: 'localapp://webappruntime?'
+					uri: 'localapp://webappruntime?',
 				}
 				if (opt.type === 'url') {
 					params.uri += 'url=' + value
