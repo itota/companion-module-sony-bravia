@@ -101,6 +101,7 @@ module.exports = {
 					label: 'Type',
 					id: 'type',
 					choices: [
+						{ id: 'activity', label: 'Android Activity' },
 						{ id: 'url', label: 'URL' },
 						{ id: 'manifest', label: 'Manifest' },
 						{ id: 'auid', label: 'Application ID' },
@@ -118,7 +119,7 @@ module.exports = {
 				let opt = action.options
 				const value = encodeURI(opt.app_value.trim())
 				let params = {
-					uri: 'localapp://webappruntime?',
+					uri: opt.type === 'activity' ? '' : 'localapp://webappruntime?',
 				}
 				if (opt.type === 'url') {
 					params.uri += 'url=' + value
@@ -126,6 +127,8 @@ module.exports = {
 					params.uri += 'manifest_url=' + value
 				} else if (opt.type === 'auid') {
 					params.uri += 'auid=' + value
+				} else if (opt.type === 'activity') {
+					params.uri += value
 				}
 				self.sendCommand('appControl', 'setActiveApp', params)
 			},
