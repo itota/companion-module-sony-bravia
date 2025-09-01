@@ -118,7 +118,7 @@ module.exports = {
 			callback: async function (action) {
 				let opt = action.options
 				const rawValue = opt.app_value.trim()
-				const value = encodeURI(rawValue)
+				const value = encodeURIComponent(rawValue)
 				let params = {
 					uri: opt.type === 'activity' ? '' : 'localapp://webappruntime?',
 				}
