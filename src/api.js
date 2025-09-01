@@ -9,6 +9,7 @@ module.exports = {
 		self.updateStatus(InstanceStatus.Connecting)
 
 		self.sendCommand('avContent', 'getCurrentExternalInputsStatus', {}, 'allinputs')
+		self.sendCommand('appControl', 'getApplicationList', {}, 'allapps')
 
 		self.getInformation()
 		self.setupInterval()
@@ -80,6 +81,11 @@ module.exports = {
 											self.DATA.inputs = data.result[0]
 											self.buildInputList()
 											self.initFeedbacks()
+											self.initPresets()
+											break
+										case 'allapps':
+											self.DATA.apps = data.result[0]
+											self.buildAppList()
 											self.initPresets()
 											break
 										case 'power':
@@ -161,6 +167,17 @@ module.exports = {
 		for (let i = 0; i < self.DATA.inputs.length; i++) {
 			let input = self.DATA.inputs[i]
 			self.CHOICES_INPUTS.push({ id: input.uri, label: input.title })
+		}
+	},
+
+	buildAppList: function () {
+		let self = this
+
+		self.CHOICES_APPS = []
+
+		for (let i = 0; i < self.DATA.apps.length; i++) {
+			let app = self.DATA.apps[i]
+			self.CHOICES_APPS.push({ id: app.uri, label: app.title.replace(/&amp;/g, '&') })
 		}
 	},
 }
