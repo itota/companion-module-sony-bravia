@@ -239,10 +239,10 @@ module.exports = {
 
 		presets['terminate_apps'] = {
 			category: 'App',
-			name: `Terminate Apps`,
+			name: `Terminate All Apps`,
 			type: 'button',
 			style: {
-				text: 'Terminate Apps',
+				text: 'Terminate All Apps',
 				size: '10',
 				color: foregroundColor,
 				bgcolor: foregroundColorBlack,

@@ -117,25 +117,26 @@ module.exports = {
 			],
 			callback: async function (action) {
 				let opt = action.options
-				const value = encodeURI(opt.app_value.trim())
+				const rawValue = opt.app_value.trim()
+				const value = encodeURI(rawValue)
 				let params = {
 					uri: opt.type === 'activity' ? '' : 'localapp://webappruntime?',
 				}
 				if (opt.type === 'url') {
 					params.uri += 'url=' + value
 				} else if (opt.type === 'manifest') {
-					params.uri += 'manifest_url=' + value
+					params.uri += 'manifest=' + value
 				} else if (opt.type === 'auid') {
 					params.uri += 'auid=' + value
 				} else if (opt.type === 'activity') {
-					params.uri += value
+					params.uri += rawValue
 				}
 				self.sendCommand('appControl', 'setActiveApp', params)
 			},
 		}
 
 		actions.terminate_apps = {
-			name: 'Terminate Apps',
+			name: 'Terminate All Apps',
 			callback: async function (action) {
 				let params = {}
 				self.sendCommand('appControl', 'terminateApps', null)
