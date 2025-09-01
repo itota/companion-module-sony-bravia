@@ -43,6 +43,7 @@ module.exports = {
 		self.sendCommand('system', 'getPowerStatus', {}, 'power')
 		self.sendCommand('audio', 'getVolumeInformation', {}, 'volume')
 		self.sendCommand('avContent', 'getPlayingContentInfo', {}, 'input')
+		self.sendCommand('appControl', 'getWebAppStatus', {}, 'webapp')
 	},
 
 	sendCommand: function (service, method, params, request = undefined) {
@@ -98,6 +99,10 @@ module.exports = {
 											break
 										case 'input':
 											self.DATA.input = data.result[0].uri
+											break
+										case 'webapp':
+											self.DATA.webAppState = data.result[0].active
+											self.DATA.webAppUrl = data.result[0].url
 											break
 										default:
 											break
