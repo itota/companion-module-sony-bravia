@@ -430,10 +430,10 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
-"@companion-module/base@~1.12.1":
-  version "1.12.1"
-  resolved "https://registry.yarnpkg.com/@companion-module/base/-/base-1.12.1.tgz#b65d2bbce9d14e62ad9f5dfac00e768c4f5906d4"
-  integrity sha512-4hKs1g6XE8QCBh/dHYUa1seDl0U84TbpS8QnD8P+mFqMe7TupqgRkfAmLf3Ai9Fw8P7tE2zlFurMG6Y9iyA6YA==
+"@companion-module/base@~1.13.2":
+  version "1.13.2"
+  resolved "https://registry.yarnpkg.com/@companion-module/base/-/base-1.13.2.tgz#004d81c77c153a60b1e38c9e8165123fcd8ca8af"
+  integrity sha512-bj5yFI1Hgg5g4ik+/dYU9r46W0wsMpyoESt/mWr0ianOs+s1ABO66oQesiQHB+RNKdpV/w8qmJXdTFtJIfR74Q==
   dependencies:
     ajv "^8.17.1"
     colord "^2.9.3"
