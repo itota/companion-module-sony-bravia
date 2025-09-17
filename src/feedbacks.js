@@ -98,6 +98,37 @@ module.exports = {
 			},
 		}
 
+		feedbacks.webAppStatus = {
+			type: 'boolean',
+			name: 'TV Web App Status is in X State',
+			description: 'Show feedback for Web App State',
+			options: [
+				{
+					type: 'dropdown',
+					label: 'State',
+					id: 'state',
+					default: true,
+					choices: [
+						{ id: true, label: 'Active' },
+						{ id: false, label: 'Inactive' },
+					],
+				},
+			],
+			defaultStyle: {
+				color: combineRgb(0, 0, 0),
+				bgcolor: combineRgb(255, 0, 0),
+			},
+			callback: (event) => {
+				let opt = event.options
+
+				if (self.DATA.webAppState == opt.state) {
+					return true
+				}
+
+				return false
+			},
+		}
+	
 		self.setFeedbackDefinitions(feedbacks)
 	},
 }
