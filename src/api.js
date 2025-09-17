@@ -183,7 +183,7 @@ module.exports = {
 
 		for (let i = 0; i < self.DATA.apps.length; i++) {
 			let app = self.DATA.apps[i]
-			self.CHOICES_APPS.push({ id: app.uri, label: entities.decodeHTML5(app.title) })
+			self.CHOICES_APPS.push({ id: app.uri, label: entities.decodeHTML(app.title) })
 		}
 	},
 }
