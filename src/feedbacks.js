@@ -128,7 +128,7 @@ module.exports = {
 				return false
 			},
 		}
-	
+
 		self.setFeedbackDefinitions(feedbacks)
 	},
 }
