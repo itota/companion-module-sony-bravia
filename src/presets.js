@@ -82,6 +82,30 @@ module.exports = {
 			],
 		}
 
+		presets['reboot'] = {
+			category: 'Power',
+			name: `Reboot`,
+			type: 'button',
+			style: {
+				text: 'Reboot',
+				size: '18',
+				color: foregroundColor,
+				bgcolor: foregroundColorBlack,
+			},
+			feedbacks: [],
+			steps: [
+				{
+					down: [
+						{
+							actionId: 'reboot',
+							options: {},
+						},
+					],
+					up: [],
+				},
+			],
+		}
+
 		presets['volume_mute'] = {
 			category: 'Volume',
 			name: `Mute`,
