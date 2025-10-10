@@ -271,7 +271,6 @@ module.exports = {
 					size: '10',
 					color: foregroundColor,
 					bgcolor: foregroundColorBlack,
-					png64: app.png64,
 				},
 				steps: [
 					{
